@@ -31,6 +31,22 @@ void draw() {
     if (a > width) {
       a = 0;
     }
+    //b = b-2;
+    //if (b < -width) {
+    //  b = 0;
+    //}
+
+    b = b+2;
+    if (b > width) {
+      b = 0;
+    }
+  }
+  
+  if (keyPressed == true) {
+    a = a+2;
+    if (a > width) {
+      a = 0;
+    }
     b = b-2;
     if (b < -width) {
       b = 0;
