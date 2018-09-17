@@ -3,12 +3,13 @@ int c=0;
 int d = 0;
 void setup() {
   size(1000, 500);
-  mini=8;
+  mini=7;
 }
 
 void draw() {
   fill(130);
   stroke(255);
+  background(124,252,0);
 
   for (int i = 20; i<width-20; i+=80) {
     c=0;

@@ -1,6 +1,38 @@
-Ilusion 1: Heiring (Interaccion: Aumenta el numero de lineas al hacer click)
-Ilusion 2: Las figuras en movimiento se acercan al centro (Interaccion: Aumenta la velocidad y colores de los circulos al hacer click)
-Ilusion 3: Figuras en movimiento que cambian la rectitud de las lineas.
-Ilusion 4: Lineas o columna de cloques que no estan paralelas.
-Posible ilusion 1: Cafe-wall (Interaccion: Enter: Las filas se mueven en sentido contrario. Mouse: Las lineas se mueven en la misma direccion)
-Posible ilusion 2: Circulos que cambian de tama�o al llegar al centro o a la orilla(Interaccion: Enter: Aparecen lineas de profundidad. Mouse: Parecen dos lineas tangentes a los circulos).
+# Taller ilusiones visuales
+
+## Propósito
+
+Comprender algunos aspectos fundamentales de la [inferencia inconsciente](https://github.com/VisualComputing/Cognitive) de la percepción visual humana.
+
+## Tareas
+
+Implementar al menos 6 ilusiones de tres tipos distintos (paradójicas, geométricas, ambiguas, etc.), al menos dos con movimiento y dos con interactividad.
+
+## Integrantes
+(máximo dos)
+
+Complete la tabla:
+
+| Integrante | github nick |
+|------------|-------------|
+| Miguel Ángel Tovar Onofre |  mikeangelo007   |
+
+## Discusión
+
+1. Complete la la tabla
+
+| Ilusión | Categoria | Referencia | Tipo de interactividad (si aplica) | URL código base (si aplica) |
+|---------|-----------|------------|------------------------------------|-----------------------------|
+|         |           |            |                                    |                             |
+|         |           |            |                                    |                             |
+|         |           |            |                                    |                             |
+|         |           |            |                                    |                             |
+|         |           |            |                                    |                             |
+|         |           |            |                                    |                             |
+
+2. Describa brevememente las referencias estudiadas y los posibles temas en los que le gustaría profundizar:
+
+## Entrega
+
+* Modo de entrega: clonar este repo y subirlo a `https://github.com/username/cv/t1`.
+* Plazo: 16/9/18 a las 24h.
