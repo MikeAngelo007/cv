@@ -212,9 +212,19 @@ public void keyPressed() {
     avoidWalls = !avoidWalls;
     break;
   case '+':
-    int index = PApplet.parseInt(random(0,initBoidNum));
-    interpolator.addKeyFrame(flock.get(index).frame);
+    for(int i=0;i<8;i++){
+      int index = PApplet.parseInt(random(0,initBoidNum));
+      interpolator.addKeyFrame(flock.get(index).frame);
+    }
+
+
     break;
+  case '-':
+    if(!interpolator.keyFrames().isEmpty()){
+      for(int i=0;i<8;i++){
+        interpolator.removeKeyFrame(0);
+      }
+    }
   case ' ':
     if (scene.eye().reference() != null)
       resetEye();
@@ -494,28 +504,7 @@ class Boid {
     }
 
 
-    // //Face 1
-    // // vertex(three, 0, 0); //Vertex 1
-    // // vertex(-three, two, 0); //Vertex 2
-    // // vertex(-three, -two, 0); //Vertex 3
-    // vertex(vertes[faces[0][0]][0], vertes[faces[0][0]][1], vertes[faces[0][0]][2]); //Vertex 1
-    // vertex(vertes[faces[0][1]][0], vertes[faces[0][1]][1], vertes[faces[0][1]][2]); //Vertex 2
-    // vertex(vertes[faces[0][2]][0], vertes[faces[0][2]][1], vertes[faces[0][2]][2]); //Vertex 3
-    // //
-    // // //Face 2
-    // vertex(vertes[faces[1][0]][0], vertes[faces[1][0]][1], vertes[faces[1][0]][2]); //Vertex 1
-    // vertex(vertes[faces[1][1]][0], vertes[faces[1][1]][1], vertes[faces[1][1]][2]); //Vertex 2
-    // vertex(vertes[faces[1][2]][0], vertes[faces[1][2]][1], vertes[faces[1][2]][2]); //Vertex 4
-    // //
-    // // //Face 3
-    // vertex(vertes[faces[2][0]][0], vertes[faces[2][0]][1], vertes[faces[2][0]][2]); //Vertex 1
-    // vertex(vertes[faces[2][1]][0], vertes[faces[2][1]][1], vertes[faces[2][1]][2]); //Vertex 4
-    // vertex(vertes[faces[2][2]][0], vertes[faces[2][2]][1], vertes[faces[2][2]][2]); //Vertex 3
-    // //
-    // // //Face 4
-    // vertex(vertes[faces[3][0]][0], vertes[faces[3][0]][1], vertes[faces[3][0]][2]); //Vertex 4
-    // vertex(vertes[faces[3][1]][0], vertes[faces[3][1]][1], vertes[faces[3][1]][2]); //Vertex 2
-    // vertex(vertes[faces[3][2]][0], vertes[faces[3][2]][1], vertes[faces[3][2]][2]); //Vertex 3
+
 
 
 
