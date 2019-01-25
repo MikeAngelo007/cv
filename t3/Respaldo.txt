@@ -34,8 +34,6 @@ static int flockWidth = 1280;
 static int flockHeight = 720;
 static int flockDepth = 600;
 static boolean avoidWalls = true;
-static boolean typeR=true;
-static boolean modeR=false;
 
 int initBoidNum = 900; // amount of boids to start the program with
 ArrayList<Boid> flock;
@@ -48,10 +46,10 @@ boolean animate = true;
 void setup() {
   size(1000, 800, P3D);
   scene = new Scene(this);
-  scene.setFrustum(new Vector(0, 0, 0), new Vector(flockWidth, flockHeight, flockDepth));
+  scene.setBoundingBox(new Vector(0, 0, 0), new Vector(flockWidth, flockHeight, flockDepth));
   scene.setAnchor(scene.center());
-  //scene.setFieldOfView(PI / 3);
-  scene.fit();
+  scene.setFieldOfView(PI / 3);
+  scene.fitBall();
   // create and fill the list of boids
   flock = new ArrayList();
   for (int i = 0; i < initBoidNum; i++)
@@ -121,7 +119,7 @@ void updateAvatar(Frame frame) {
 // Sets current avatar as the eye reference and interpolate the eye to it
 void thirdPerson() {
   scene.eye().setReference(avatar);
-  scene.fit(avatar, 1);
+  scene.interpolateTo(avatar);
 }
 
 // Resets the eye
@@ -129,7 +127,7 @@ void resetEye() {
   // same as: scene.eye().setReference(null);
   scene.eye().resetReference();
   scene.lookAt(scene.center());
-  scene.fit(1);
+  scene.fitBallInterpolation();
 }
 
 // picks up a boid avatar, may be null
@@ -156,7 +154,7 @@ void mouseDragged() {
       scene.translate();
     else
       // same as: scene.zoom(mouseX - pmouseX, scene.eye());
-      scene.moveForward(mouseX - pmouseX);
+      scene.zoom(mouseX - pmouseX);
 }
 
 // highlighting and 'third-person' interaction
@@ -182,7 +180,7 @@ void keyPressed() {
     break;
   case 's':
     if (scene.eye().reference() == null)
-      scene.fit();
+      scene.fitBallInterpolation();
     break;
   case 't':
     scene.shiftTimers();
@@ -212,14 +210,6 @@ void keyPressed() {
       resetEye();
     else if (avatar != null)
       thirdPerson();
-    break;
-    
-    case 'm':
-    modeR=!modeR;
-    break;
-    
-    case 'c':
-    typeR=!typeR;
     break;
   }
 }
@@ -261,32 +251,31 @@ class Boid {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////   Modo retenido ///////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if(!modeR){
-     float sc = 3;
-     float three= 3 * sc;
-     float two= 2 * sc;
-     int[][] faces= {{0,1,2},
-                     {0,1,3},
-                     {0,3,2},
-                     {3,1,2}};
-     float[][] vertes= {{three, 0, 0},
-                       {-three, two, 0},
-                       {-three, -two, 0},
-                       {-three, 0, two}};
-    
-     sh = createShape();
-     sh.beginShape(TRIANGLE_STRIP);
-     for(int i=0;i<4;i++){
-       for(int j=0;j<3;j++){
-         int v=faces[i][j];
-         sh.vertex(vertes[v][0],vertes[v][1],vertes[v][2]);
-       }
-     }
-    
-    
-    
-     sh.endShape();
-    }
+
+    // float sc = 3;
+    // float three= 3 * sc;
+    // float two= 2 * sc;
+    // int[][] faces= {{0,1,2},
+    //                 {0,1,3},
+    //                 {0,3,2},
+    //                 {3,1,2}};
+    // float[][] vertes= {{three, 0, 0},
+    //                   {-three, two, 0},
+    //                   {-three, -two, 0},
+    //                   {-three, 0, two}};
+    //
+    // sh = createShape();
+    // sh.beginShape(TRIANGLE_STRIP);
+    // for(int i=0;i<4;i++){
+    //   for(int j=0;j<3;j++){
+    //     int v=faces[i][j];
+    //     sh.vertex(vertes[v][0],vertes[v][1],vertes[v][2]);
+    //   }
+    // }
+    //
+    //
+    //
+    // sh.endShape();
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   }
@@ -419,21 +408,18 @@ class Boid {
      ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
      //////////////////////////////////////////////////   Modo retenido ///////////////////////////////////////////////////////////////////////
      //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if(!modeR){
-      shape(sh);
-    }
+    //shape(sh);
+
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////   Modo inmediato ///////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if(modeR){
     float three= 3 * sc;
     float two= 2 * sc;
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////    Face to vertex  ///////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if(typeR){
     int[][] faces= {{0,1,2},
                     {0,1,3},
                     {0,3,2},
@@ -442,84 +428,60 @@ class Boid {
                       {-three, two, 0},
                       {-three, -two, 0},
                       {-three, 0, two}};
-                      
-     beginShape(TRIANGLES);
-       for(int i=0;i<4;i++){
-        for(int j=0;j<3;j++){
-          int v=faces[i][j];
-          vertex(vertes[v][0],vertes[v][1],vertes[v][2]);
-        }
-      }
-     endShape();
-    }
+
 
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////    Vertex to vertex  ///////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if(!typeR){
-     ArrayList< ArrayList<float[]> > figure = new ArrayList< ArrayList<float[]> >();
-     float[] vertes0= {three, 0, 0};
-     float[] vertes1=  {-three, two, 0};
-     float[] vertes2={-three, -two, 0};
-     float[] vertes3=  {-three, 0, two};
-    
-    
-     float[] v0= {1, 2, 3};
-     float[] v1=  {0, 2, 3};
-     float[] v2={0, 1, 3};
-     float[] v3=  {0, 1, 2};
-    
-     ArrayList<float[]> ver0 = new ArrayList<float[]>();
-     ver0.add(vertes0);
-     ver0.add(v0);
-     figure.add(ver0);
-    
-     ArrayList<float[]> ver1 = new ArrayList<float[]>();
-     ver1.add(vertes1);
-     ver1.add(v1);
-     figure.add(ver1);
-    
-     ArrayList<float[]> ver2 = new ArrayList<float[]>();
-     ver2.add(vertes2);
-     ver2.add(v2);
-     figure.add(ver2);
-    
-     ArrayList<float[]> ver3 = new ArrayList<float[]>();
-     ver3.add(vertes3);
-     ver3.add(v3);
-     figure.add(ver3);
-     
-     beginShape(TRIANGLES);
-      for(int i=0; i< 4;i++){
-         ArrayList<float[]> v = figure.get(i);
-         float[] o = v.get(0);
-         float[] d = v.get(1);
-         for(int j=0; j<3;j++){
-           ArrayList<float[]> ve = figure.get((int) d[j]);
-           float[] de = ve.get(0);
-           line(o[0],o[1],o[2],de[0],de[1],de[2]);
-         }
-     }
+    // ArrayList< ArrayList<float[]> > figure = new ArrayList< ArrayList<float[]> >();
+    // float[] vertes0= {three, 0, 0};
+    // float[] vertes1=  {-three, two, 0};
+    // float[] vertes2={-three, -two, 0};
+    // float[] vertes3=  {-three, 0, two};
+    //
+    //
+    // float[] v0= {1, 2, 3};
+    // float[] v1=  {0, 2, 3};
+    // float[] v2={0, 1, 3};
+    // float[] v3=  {0, 1, 2};
+    //
+    // ArrayList<float[]> ver0 = new ArrayList<float[]>();
+    // ver0.add(vertes0);
+    // ver0.add(v0);
+    // figure.add(ver0);
+    //
+    // ArrayList<float[]> ver1 = new ArrayList<float[]>();
+    // ver1.add(vertes1);
+    // ver1.add(v1);
+    // figure.add(ver1);
+    //
+    // ArrayList<float[]> ver2 = new ArrayList<float[]>();
+    // ver2.add(vertes2);
+    // ver2.add(v2);
+    // figure.add(ver2);
+    //
+    // ArrayList<float[]> ver3 = new ArrayList<float[]>();
+    // ver3.add(vertes3);
+    // ver3.add(v3);
+    // figure.add(ver3);
 
-    endShape();
 
-    }
 
 
 
     //draw boid
-    //beginShape(TRIANGLES);
+    beginShape(TRIANGLES);
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////    Face to vertex  ///////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    //for(int i=0;i<4;i++){
-    //  for(int j=0;j<3;j++){
-    //    int v=faces[i][j];
-    //    vertex(vertes[v][0],vertes[v][1],vertes[v][2]);
-    //  }
-    //}
+    for(int i=0;i<4;i++){
+      for(int j=0;j<3;j++){
+        int v=faces[i][j];
+        vertex(vertes[v][0],vertes[v][1],vertes[v][2]);
+      }
+    }
 
 
 
@@ -543,8 +505,8 @@ class Boid {
     //     }
     // }
 
-    //endShape();
-    }
+    endShape();
+
     popStyle();
   }
 }
