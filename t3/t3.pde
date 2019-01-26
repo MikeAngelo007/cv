@@ -315,17 +315,56 @@ class Boid {
      
     
      sh = createShape();
-     sh.beginShape(TRIANGLE_STRIP);
-     for(int i=0;i<4;i++){
-       for(int j=0;j<3;j++){
-         int v=faces[i][j];
-         sh.vertex(vertes[v][0],vertes[v][1],vertes[v][2]);
+     if(typeR){
+       sh.beginShape(TRIANGLE_STRIP);
+       for(int i=0;i<4;i++){
+         for(int j=0;j<3;j++){
+           int v=faces[i][j];
+           sh.vertex(vertes[v][0],vertes[v][1],vertes[v][2]);
+         }
        }
+      
+      
+      
+       sh.endShape();
      }
-    
-    
-    
-     sh.endShape();
+     if(!typeR){
+     
+       ver0.add(vertes0);
+       ver0.add(v0);
+       figure.add(ver0);
+      
+       
+       ver1.add(vertes1);
+       ver1.add(v1);
+       figure.add(ver1);
+      
+       
+       ver2.add(vertes2);
+       ver2.add(v2);
+       figure.add(ver2);
+      
+       
+       ver3.add(vertes3);
+       ver3.add(v3);
+       figure.add(ver3);
+       
+       sh.beginShape(TRIANGLES);
+       noFill();
+        for(int i=0; i< 4;i++){
+           ArrayList<float[]> v = figure.get(i);
+           float[] o = v.get(0);
+           float[] d = v.get(1);
+           for(int j=0; j<3;j++){
+             ArrayList<float[]> ve = figure.get((int) d[j]);
+             float[] de = ve.get(0);
+             //sh.line(o[0],o[1],o[2],de[0],de[1],de[2]);
+           }
+         }
+  
+        sh.endShape();
+     }
+     
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -468,65 +507,65 @@ class Boid {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if(modeR){
 
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////    Face to vertex  ///////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if(typeR){
-                      
-     beginShape(TRIANGLES);
-       for(int i=0;i<4;i++){
-        for(int j=0;j<3;j++){
-          int v=faces[i][j];
-          vertex(vertes[v][0],vertes[v][1],vertes[v][2]);
+      /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      //////////////////////////////////////////////////////////    Face to vertex  ///////////////////////////////////////////////////////////////
+      /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      if(typeR){
+                        
+       beginShape(TRIANGLES);
+         for(int i=0;i<4;i++){
+          for(int j=0;j<3;j++){
+            int v=faces[i][j];
+            vertex(vertes[v][0],vertes[v][1],vertes[v][2]);
+          }
         }
+       endShape();
       }
-     endShape();
-    }
-
-
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////    Vertex to vertex  ///////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    if(!typeR){
-     
-     ver0.add(vertes0);
-     ver0.add(v0);
-     figure.add(ver0);
-    
-     
-     ver1.add(vertes1);
-     ver1.add(v1);
-     figure.add(ver1);
-    
-     
-     ver2.add(vertes2);
-     ver2.add(v2);
-     figure.add(ver2);
-    
-     
-     ver3.add(vertes3);
-     ver3.add(v3);
-     figure.add(ver3);
-     
-     beginShape(TRIANGLES);
-      for(int i=0; i< 4;i++){
-         ArrayList<float[]> v = figure.get(i);
-         float[] o = v.get(0);
-         float[] d = v.get(1);
-         for(int j=0; j<3;j++){
-           ArrayList<float[]> ve = figure.get((int) d[j]);
-           float[] de = ve.get(0);
-           line(o[0],o[1],o[2],de[0],de[1],de[2]);
-         }
-     }
-
-    endShape();
-
-    }
-
-
-
-    //draw boid
+  
+  
+      /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      //////////////////////////////////////////////////////////    Vertex to vertex  ///////////////////////////////////////////////////////////////
+      /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+      if(!typeR){
+       
+       ver0.add(vertes0);
+       ver0.add(v0);
+       figure.add(ver0);
+      
+       
+       ver1.add(vertes1);
+       ver1.add(v1);
+       figure.add(ver1);
+      
+       
+       ver2.add(vertes2);
+       ver2.add(v2);
+       figure.add(ver2);
+      
+       
+       ver3.add(vertes3);
+       ver3.add(v3);
+       figure.add(ver3);
+       
+       beginShape(TRIANGLES);
+        for(int i=0; i< 4;i++){
+           ArrayList<float[]> v = figure.get(i);
+           float[] o = v.get(0);
+           float[] d = v.get(1);
+           for(int j=0; j<3;j++){
+             ArrayList<float[]> ve = figure.get((int) d[j]);
+             float[] de = ve.get(0);
+             line(o[0],o[1],o[2],de[0],de[1],de[2]);
+           }
+       }
+  
+      endShape();
+  
+      }
+  
+  
+  
+      //draw boid
     
     }
     popStyle();
