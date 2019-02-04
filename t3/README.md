@@ -33,3 +33,9 @@ Complete la tabla:
 
 * Subir el código al repositorio de la materia antes del 14/10/18 a las 24h.
 * Presentar el trabajo en la clase del 17/10/18 o 18/10/18.
+
+## Explicacion
+Al oprimir la letra 'm', el programa cambiara de un modo de representacion a otro. Inicia en modo retenido y cambia a modo inmediato.
+Al oprimir la letra 'c', cambia el tipo de representacion del boid, cambiando entre Vertex to Vertex y Face to Vertex.
+
+Para cambiar el modo de representacion en modo retenido, cambiar el valor de typeR (True: Face to Vertex , False: Vertex to Vertex) de acuerdo a la representacion que se desea observar. Para modo inmediaro, funciona la letra 'c'.
