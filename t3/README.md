@@ -26,7 +26,8 @@ Complete la tabla:
 
 | Integrante | github nick |
 |------------|-------------|
-|            |             |
+|  Miguel Ángel Tovar          |         MikeAngelo007    |
+|  Yeliana Torres          |         yelis3    |
 
 ## Entrega
 
