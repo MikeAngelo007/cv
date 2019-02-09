@@ -17,7 +17,8 @@ class Boid {
   float t = 0;
 
 
-  PShape sh;   ////////// Modo retenido
+  PShape sh= createShape(GROUP);  ////////// Modo retenido
+  
   Boid(Vector inPos) {
     position = new Vector();
     position.set(inPos);
@@ -39,7 +40,7 @@ class Boid {
     if(!modeR){
 
 
-    sh = createShape();
+    
 
      if(typeR == 1){
 

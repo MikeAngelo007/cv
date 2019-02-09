@@ -40,23 +40,24 @@ ArrayList<Vector> bc = new ArrayList<Vector>();
 
  
  
-PShape retFVMode(PShape sh){
-  
-  sh.beginShape(TRIANGLE_STRIP);
-           sh.stroke(color(255,0, 0));
-          sh.fill(color(0, 255, 0, 125));
+PShape retFVMode(PShape bo){
+  PShape em = createShape();
+  em.beginShape(TRIANGLE_STRIP);
+           em.stroke(color(255,0, 0));
+          em.fill(color(0, 255, 0, 125));
        for(int i=0;i<4;i++){
          for(int j=0;j<3;j++){
            int v=faces[i][j];
-           sh.vertex(vertes[v][0],vertes[v][1],vertes[v][2]);
+           em.vertex(vertes[v][0],vertes[v][1],vertes[v][2]);
          }
        }
 
 
 
-       sh.endShape();
+       em.endShape();
+       bo.addChild(em);
   
-  return sh;
+  return bo;
 }
 
 void inmFVMode(){
@@ -157,7 +158,7 @@ void inmVVMode(){
 }
 
 
-PShape retVVMode(PShape sh){
+PShape retVVMode(PShape bo){
        ver0.add(vertes0);
        ver0.add(v0);
        figure.add(ver0);
@@ -177,7 +178,8 @@ PShape retVVMode(PShape sh){
        ver3.add(v3);
        figure.add(ver3);
 
-       sh.beginShape(TRIANGLES);
+       PShape em = createShape();
+       em.beginShape(TRIANGLES);
        stroke(color(0, 255, 0));
       fill(color(255,0, 0, 125));
         for(int i=0; i< 4;i++){
@@ -213,23 +215,23 @@ PShape retVVMode(PShape sh){
              switch(ver){
                case 0:
                  fill(color(234, 0, 234, 125));
-                 sh.vertex(vertes0[0],vertes0[1],vertes0[2]);
+                 em.vertex(vertes0[0],vertes0[1],vertes0[2]);
                break;
 
                case 1:
                    fill(color(234, 0, 234, 125));
-                  sh.vertex(vertes1[0],vertes1[1],vertes1[2]);
+                  em.vertex(vertes1[0],vertes1[1],vertes1[2]);
                break;
 
                case 2:
                  fill(color(234, 0, 234, 125));
-                 sh.vertex(vertes2[0],vertes2[1],vertes2[2]);
+                 em.vertex(vertes2[0],vertes2[1],vertes2[2]);
 
                break;
 
                case 3:
                  fill(color(234, 0, 234, 125));
-                 sh.vertex(vertes3[0],vertes3[1],vertes3[2]);
+                 em.vertex(vertes3[0],vertes3[1],vertes3[2]);
 
                break;
              }
@@ -238,9 +240,11 @@ PShape retVVMode(PShape sh){
            }
        }
 
-      sh.endShape();
+      em.endShape();
       
-     return sh;
+      bo.addChild(em);
+      
+     return bo;
 }
 
 
@@ -306,7 +310,7 @@ void inmSSMode(){
       endShape();
 }
 
-PShape retSSMode(PShape sh){
+PShape retSSMode(PShape bo){
   
     bc.add(new Vector(three, 0, 0)); // 1
     bc.add(new Vector(-three, two, 0)); // 2
@@ -338,17 +342,20 @@ PShape retSSMode(PShape sh){
           curvePoints.add(P);
         }
       }
-      sh.beginShape();
+      PShape em = createShape();
+      em.beginShape();
       for(int i = 0; i < curvePoints.size(); i ++) {
         Vector P = curvePoints.get(i);
         pushStyle();
           stroke(255, 0, 0);
           strokeWeight(5);
           if(i != 0) {
-            sh.vertex(P.x(), P.y(), P.z());
+            em.vertex(P.x(), P.y(), P.z());
           }
         popStyle();
       }
-      sh.endShape();
-   return sh;
+      em.endShape();
+      
+      bo.addChild(em);
+   return bo;
 }
