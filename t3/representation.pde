@@ -157,17 +157,21 @@ void inmWEMode(){
     
       ver[curr.get(0)[0]][curr.get(0)[1]]=1;
       
-      line(o[0],o[1],o[2],d[0],d[1],d[2]);
+      //line(o[0],o[1],o[2],d[0],d[1],d[2]);
+      vertex(o[0],o[1],o[2]);
+      vertex(d[0],d[1],d[2]);
     }
     
     for(int j=0;j<2;j++){
       float[] a = vertes[curr.get(1)[j]];
       if(ver[curr.get(0)[0]][curr.get(1)[j]]!=1){
-        line(o[0],o[1],o[2],a[0],a[1],a[2]);
+        //line(o[0],o[1],o[2],a[0],a[1],a[2]);
+        vertex(a[0],a[1],a[2]);
         ver[curr.get(0)[0]][curr.get(1)[j]]=1;
       }
       if(ver[curr.get(0)[1]][curr.get(1)[j]]!=1){
-        line(d[0],d[1],d[2],a[0],a[1],a[2]);
+        //line(d[0],d[1],d[2],a[0],a[1],a[2]);
+        vertex(a[0],a[1],a[2]);
         ver[curr.get(0)[1]][curr.get(1)[j]]=1;
       }
       
@@ -178,31 +182,10 @@ void inmWEMode(){
   }
   
   
-         for(int i=0;i<4;i++){
-          for(int j=0;j<3;j++){
-            int v=faces[i][j];
-            vertex(vertes[v][0],vertes[v][1],vertes[v][2]);
-          }
-        }
+        
   endShape();
   
-  
-  
-  
-  //ArrayList< ArrayList<float[]> > curr = shapes.get(0);
-  // float[] o = curr.get(0).get(0);
-  // float[] d = curr.get(0).get(1);
-    
-  // line(o[0],o[1],o[2],d[0],d[1],d[2]);
-   
-  // for(int j=0;j<2;j++){
-  //    float[] a = curr.get(1).get(j);
-  //    line(o[0],o[1],o[2],a[0],a[1],a[2]);
-  //    line(d[0],d[1],d[2],a[0],a[1],a[2]);
-  //  }
-  //  o=curr.get(1).get(0);
-  //  d = curr.get(1).get(1);
-  //  line(o[0],o[1],o[2],d[0],d[1],d[2]);
+ 
 }
 
 PShape retWEMode(PShape sh){
@@ -291,24 +274,7 @@ PShape retWEMode(PShape sh){
   
         
   em.endShape();
-  
-  
-  
-  
-  //ArrayList< ArrayList<float[]> > curr = shapes.get(0);
-  // float[] o = curr.get(0).get(0);
-  // float[] d = curr.get(0).get(1);
-    
-  // line(o[0],o[1],o[2],d[0],d[1],d[2]);
-   
-  // for(int j=0;j<2;j++){
-  //    float[] a = curr.get(1).get(j);
-  //    line(o[0],o[1],o[2],a[0],a[1],a[2]);
-  //    line(d[0],d[1],d[2],a[0],a[1],a[2]);
-  //  }
-  //  o=curr.get(1).get(0);
-  //  d = curr.get(1).get(1);
-  //  line(o[0],o[1],o[2],d[0],d[1],d[2]);
+ 
   sh.addChild(em);
   return sh;
 }
