@@ -56,8 +56,13 @@ class Boid {
      }
      
      if(typeR == 3){
+       sh=retWEMode(sh);
+     }
+     
+     if(typeR == 4){
        sh=retSSMode(sh);
      }
+     
 
     }
   }
@@ -206,7 +211,11 @@ class Boid {
       }
       
       if(typeR == 3){
+        inmWEMode();
       
+        //x
+      }
+      if(typeR == 4){
         inmSSMode();
       }
 

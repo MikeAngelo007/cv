@@ -231,6 +231,7 @@ void keyPressed() {
 
   case 'm':
     modeR=!modeR;
+    //print("entra");
     break;
 
   case 'c':
@@ -239,6 +240,8 @@ void keyPressed() {
     }else if(typeR == 2){
       typeR=3;
     }else if(typeR == 3){
+      typeR=4;
+    }else if(typeR == 4){
       typeR=1;
     }
     break;
@@ -247,6 +250,8 @@ void keyPressed() {
     if(typeR == 1){
       typeR=2;
     }else if(typeR == 2){
+      typeR=3;
+    }else if(typeR == 3){
       typeR=1;
     }
     //if(surface){
