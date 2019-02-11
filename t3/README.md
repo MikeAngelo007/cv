@@ -36,6 +36,6 @@ Complete la tabla:
 
 ## Explicacion
 Al oprimir la letra 'm', el programa cambiara de un modo de representacion a otro. Inicia en modo retenido y cambia a modo inmediato.
-Al oprimir la letra 'c', cambia el tipo de representacion del boid, cambiando entre Vertex to Vertex y Face to Vertex.
+Al oprimir la letra 'c', cambia el tipo de representacion del boid, cambiando entre Vertex to Vertex, Face to Vertex, Winged-Edge y Spline superfice.
 
-Para cambiar el modo de representacion en modo retenido, cambiar el valor de typeR (True: Face to Vertex , False: Vertex to Vertex) de acuerdo a la representacion que se desea observar. Para modo inmediaro, funciona la letra 'c'.
+Para cambiar el modo de representacion en modo retenido, cambiar el valor de typeR (1: Face to Vertex , 2: Vertex to Vertex, 3: Winged-Edge, 4: Spline Superfice) de acuerdo a la representacion que se desea observar. Para modo inmediato, funciona la letra 'c'. Se puede presionar la letra 'u' en caso de no desear activar las superficies de Spline.
