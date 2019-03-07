@@ -20,11 +20,11 @@ import net.java.games.input.*;
 
 ControlIO control;
 ControlDevice device; // my SpaceNavigator
-ControlSlider snXPos; // Positions
-ControlSlider snYPos;
-ControlSlider snZPos;
-ControlSlider snXRot; // Rotations
-ControlSlider snYRot;
+ControlSlider j1x; // Positions
+ControlSlider j1y;
+ControlSlider z1;
+ControlSlider j2x; // Rotations
+ControlSlider j2y;
 //ControlSlider snZRot;
 ControlButton a; // Buttons
 ControlButton b;
@@ -65,15 +65,22 @@ void setup() {
   current = grid.get(0);
   
   scene.eye().setPosition(10,-10,30);
+  
 
 }
 
 void draw() {
+  if(scene.eye().position().z()<0){
+    println("Sale por debajo");
+    scene.eye().position().setZ(0);
+    println("Arreglado?");
+    println(scene.eye().position().z());
+  }
   //translate(0,0,-600);
   rotateX(PI/2);
   
-  //scene.translate("SPCNAV", 10 * snXPos.getValue(), 10 * snYPos.getValue(), 10 * snZPos.getValue());
-  //scene.rotate("SPCNAV", -snXRot.getValue() * 20 * PI / width, snYRot.getValue() * 20 * PI / width, snZRot.getValue() * 20 * PI / width);
+  //scene.translate("SPCNAV", 10 * j1x.getValue(), 10 * j1y.getValue(), 10 * z1.getValue());
+  //scene.rotate("SPCNAV", -j2x.getValue() * 20 * PI / width, j2y.getValue() * 20 * PI / width, snZRot.getValue() * 20 * PI / width);
   
   spaceNavigatorInteraction();
   
@@ -117,15 +124,15 @@ void spaceNavigatorInteraction() {
   
   xp=10 * (hat.right()?-1:(hat.left()?1:0));
   yp=10 * (hat.up()?1:(hat.down()?-1:0));
-  zp=1 * snZPos.getValue();
+  zp=1 * z1.getValue();
   scene.translate( xp, yp,zp );
-  
-  //scene.rotate( -snXRot.getValue() * 20 * PI / width, snYRot.getValue() * 20 * PI / width, snZPos.getValue() * 20 * PI / width);
+  scene.translate(-5* j1x.getValue(), 0,j1y.getValue() );
+  //scene.rotate( -j2x.getValue() * 20 * PI / width, j2y.getValue() * 20 * PI / width, z1.getValue() * 20 * PI / width);
   
     
     //scene.translate( 10, 10 , 10 );
  //scene.rotate(  (lb.pressed()? 1:0)*-5* PI / width, (rb.pressed()? 1:0) *5* PI / width,  0, scene.eye());
- scene.lookAround((lb.pressed()?1:(rb.pressed()?-1:0))*-5* PI / width,0);
+ scene.lookAround((j2x.getValue()*5* PI / width),(j2y.getValue()*5* PI / width));
  println(scene.eye().position());
  //println(hat.right());
 }
@@ -179,11 +186,11 @@ void openSpaceNavigator() {
     System.exit(-1); // End the program NOW!
   }
   //device.setTolerance(5.00f);
-  snXPos = device.getSlider("j1x");
-  snYPos = device.getSlider("j1y");
-  snZPos = device.getSlider("z1");
-  snXRot = device.getSlider("j2x");
-  snYRot = device.getSlider("j2y");
+  j1x = device.getSlider("j1x");
+  j1y = device.getSlider("j1y");
+  z1 = device.getSlider("z1");
+  j2x = device.getSlider("j2x");
+  j2y = device.getSlider("j2y");
   //snZRot = device.getSlider(5);
   a = device.getButton("a");
   b = device.getButton("b");
