@@ -70,12 +70,7 @@ void setup() {
 }
 
 void draw() {
-  if(scene.eye().position().z()<0){
-    println("Sale por debajo");
-    scene.eye().position().setZ(0);
-    println("Arreglado?");
-    println(scene.eye().position().z());
-  }
+  
   //translate(0,0,-600);
   rotateX(PI/2);
   
@@ -133,7 +128,7 @@ void spaceNavigatorInteraction() {
     //scene.translate( 10, 10 , 10 );
  //scene.rotate(  (lb.pressed()? 1:0)*-5* PI / width, (rb.pressed()? 1:0) *5* PI / width,  0, scene.eye());
  scene.lookAround((j2x.getValue()*5* PI / width),(j2y.getValue()*5* PI / width));
- println(scene.eye().position());
+ 
  //println(hat.right());
 }
 
