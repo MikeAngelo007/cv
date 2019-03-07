@@ -1,0 +1,15 @@
+xbox360
+j1x	joystick 1	3	SLIDER	Eje X	0	1.0	0.2
+j1y	j1y	3	SLIDER	Eje Y	0	1.0	0.2
+j2x	j2x	3	SLIDER	Rotación X	0	1.0	0.2
+j2y	j2y	3	SLIDER	Rotación Y	0	1.0	0.2
+z1	z1	3	SLIDER	Eje Z	0	1.0	0.2
+x	x	1	BUTTON	Botón 2	0	0.0	0.0
+y	y	1	BUTTON	Botón 3	0	0.0	0.0
+b	b	1	BUTTON	Botón 1	0	0.0	0.0
+a	a	1	BUTTON	Botón 0	0	0.0	0.0
+rb	rb	1	BUTTON	Botón 5	0	0.0	0.0
+lb	lb	1	BUTTON	Botón 4	0	0.0	0.0
+j1click	j1click	1	BUTTON	Botón 8	0	0.0	0.0
+j2click	j2click	1	BUTTON	Botón 9	0	0.0	0.0
+hat	hat	2	HAT	cooliehat: Botón del control	0	1.0	0.0

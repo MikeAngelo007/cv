@@ -18,7 +18,24 @@ import frames.processing.*;
 import org.gamecontrolplus.*;
 import net.java.games.input.*;
 
+ControlIO control;
+ControlDevice device; // my SpaceNavigator
+ControlSlider snXPos; // Positions
+ControlSlider snYPos;
+ControlSlider snZPos;
+ControlSlider snXRot; // Rotations
+ControlSlider snYRot;
+//ControlSlider snZRot;
+ControlButton a; // Buttons
+ControlButton b;
+ControlButton lb; // Buttons
+ControlButton rb;
+ControlHat hat;
+
 Scene scene;
+float xp=0;
+float yp=0;
+float zp=0;
 
 int cols, rows;
 int w = 40;
@@ -30,8 +47,9 @@ ArrayList<Cell> stack = new ArrayList<Cell>();
 
 void setup() {
   size(600, 600, P3D);
-  //scene = new Scene(this);
-  //scene.setRadius(1500);
+  openSpaceNavigator();
+  scene = new Scene(this);
+  scene.setRadius(1500);
   //scene.fit(1);
   cols = floor(width/w);
   rows = floor(height/w);
@@ -45,17 +63,19 @@ void setup() {
   }
 
   current = grid.get(0);
+  
+  scene.eye().setPosition(10,-10,30);
 
 }
 
 void draw() {
-  translate(0,0,-600);
-  rotateX(PI/4);
+  //translate(0,0,-600);
+  rotateX(PI/2);
   
   //scene.translate("SPCNAV", 10 * snXPos.getValue(), 10 * snYPos.getValue(), 10 * snZPos.getValue());
   //scene.rotate("SPCNAV", -snXRot.getValue() * 20 * PI / width, snYRot.getValue() * 20 * PI / width, snZRot.getValue() * 20 * PI / width);
   
-  
+  spaceNavigatorInteraction();
   
   grid.get(0).walls[3]=false;
   grid.get(grid.size()-1).walls[2]=false;
@@ -93,7 +113,39 @@ int index(int i, int j) {
   return i + j * cols;
 }
 
+void spaceNavigatorInteraction() {
+  
+  xp=10 * (hat.right()?-1:(hat.left()?1:0));
+  yp=10 * (hat.up()?1:(hat.down()?-1:0));
+  zp=1 * snZPos.getValue();
+  scene.translate( xp, yp,zp );
+  
+  //scene.rotate( -snXRot.getValue() * 20 * PI / width, snYRot.getValue() * 20 * PI / width, snZPos.getValue() * 20 * PI / width);
+  
+    
+    //scene.translate( 10, 10 , 10 );
+ //scene.rotate(  (lb.pressed()? 1:0)*-5* PI / width, (rb.pressed()? 1:0) *5* PI / width,  0, scene.eye());
+ scene.lookAround((lb.pressed()?1:(rb.pressed()?-1:0))*-5* PI / width,0);
+ println(scene.eye().position());
+ //println(hat.right());
+}
 
+void mouseMoved() {
+  scene.cast();
+}
+
+void mouseDragged() {
+  if (mouseButton == LEFT)
+    scene.spin();
+  else if (mouseButton == RIGHT)
+    scene.translate();
+  else
+    scene.scale(scene.mouseDX());
+}
+
+void mouseWheel(MouseEvent event) {
+  scene.moveForward(event.getCount() * 20);
+}
 
 void removeWalls(Cell a, Cell b) {
   int x = a.i - b.i;
@@ -112,4 +164,30 @@ void removeWalls(Cell a, Cell b) {
     a.walls[2] = false;
     b.walls[0] = false;
   }
+}
+
+void openSpaceNavigator() {
+  println(System.getProperty("os.name"));
+  control = ControlIO.getInstance(this);
+  String os = System.getProperty("os.name").toLowerCase();
+  if (os.indexOf("nix") >= 0 || os.indexOf("nux") >= 0)
+    device = control.getMatchedDevice("xbox360");// magic name for linux
+  else
+    device = control.getMatchedDevice("xbox360");//magic name, for windows
+  if (device == null) {
+    println("No suitable device configured");
+    System.exit(-1); // End the program NOW!
+  }
+  //device.setTolerance(5.00f);
+  snXPos = device.getSlider("j1x");
+  snYPos = device.getSlider("j1y");
+  snZPos = device.getSlider("z1");
+  snXRot = device.getSlider("j2x");
+  snYRot = device.getSlider("j2y");
+  //snZRot = device.getSlider(5);
+  a = device.getButton("a");
+  b = device.getButton("b");
+  lb = device.getButton("lb");
+  rb = device.getButton("rb");
+  hat = device.getHat("hat");
 }
