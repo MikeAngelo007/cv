@@ -12,14 +12,19 @@
 // Recursive backtracker
 // https://en.wikipedia.org/wiki/Maze_generation_algorithm
 
+
 class Cell {
   int i, j;
   boolean[] walls = {true, true, true, true};
   boolean visited = false;
+  PImage texture;
+  PImage floor;
   
-  Cell(int ii, int jj) {
+  Cell(int ii, int jj, PImage tex, PImage floor) {
     i = ii;
     j = jj;
+    texture = tex;
+    this.floor = floor;
   }
 
   Cell checkNeighbors() {
@@ -77,47 +82,67 @@ class Cell {
     //  line(x    , y + w, x    , y);
     //}
     if (this.walls[0]) {
+      textureMode(NORMAL);
       beginShape();
-      fill(0,0,255);
-      vertex(x, y,0);
-      vertex(x + w, y,0);
-      vertex(x + w, y,20);
-      vertex(x, y,20);
+      texture(texture);
+      //fill(0,0,255);
+      vertex(x, y,0, 0, 0);
+      vertex(x + w, y,0, 1,0);
+      vertex(x + w, y,20, 1,1);
+      vertex(x, y,20,0,1);
       endShape();
     }
     if (this.walls[1]) {
+      textureMode(NORMAL);
       beginShape();
-      fill(0,0,255);
-      vertex(x + w, y,0);
-      vertex(x + w, y + w,0);
-      vertex(x + w, y + w,20);
-      vertex(x + w, y,20);
+      texture(texture);
+      //fill(0,0,255);
+      vertex(x + w, y,0, 0,0);
+      vertex(x + w, y + w,0,1,0);
+      vertex(x + w, y + w,20,1,1);
+      vertex(x + w, y,20,0,1);
       endShape();
     }
     if (this.walls[2]) {
+      textureMode(NORMAL);
       beginShape();
-      fill(0,0,255);
-      vertex(x + w, y + w,0);
-      vertex(x    , y + w,0);
-      vertex(x    , y + w,20);
-      vertex(x + w, y + w,20);
+      texture(texture);
+      //fill(0,0,255);
+      vertex(x + w, y + w,0,0,0);
+      vertex(x    , y + w,0,1,0);
+      vertex(x    , y + w,20,1,1);
+      vertex(x + w, y + w,20,0,1);
       endShape();
     }
     if (this.walls[3]) {
-      line(x    , y + w, x    , y);
+      //line(x    , y + w, x    , y);
+      textureMode(NORMAL);
       beginShape();
-      fill(0,0,255);
-      vertex(x    , y + w,0);
-      vertex(x    , y,0);
-      vertex(x    , y,20);
-      vertex(x    , y + w,20);
+      texture(texture);
+      //fill(0,0,255);
+      vertex(x    , y + w,0,0,0);
+      vertex(x    , y,0,1,0);
+      vertex(x    , y,20,1,1);
+      vertex(x    , y + w,20,0,1);
       endShape();
     }
 
     if (this.visited) {
+      textureMode(NORMAL);
+      beginShape();
       noStroke();
-      fill(255, 0, 0, 100);
-      rect(x, y, w, w);
+      //fill(0,0,255);
+      texture(floor);
+      normal(1, 1, 1);
+      vertex(x, y, 0, 0, 0);
+      vertex(x,y+w,0, 1, 0);
+      vertex(x+w,y+w,0, 1, 1);
+      vertex(x+w, y,0, 0, 1);
+      endShape();
+      
+      //fill(255, 0, 0, 100);
+      
+      //rect(x, y, w, w);
     }
   }
 }

@@ -45,6 +45,9 @@ Cell current;
 
 ArrayList<Cell> stack = new ArrayList<Cell>();
 
+PImage label, floor;
+
+
 void setup() {
   size(600, 600, P3D);
   openSpaceNavigator();
@@ -53,11 +56,13 @@ void setup() {
   //scene.fit(1);
   cols = floor(width/w);
   rows = floor(height/w);
+  label = loadImage("lachoy.jpg");
+  floor = loadImage("floor.jpg");
   //frameRate(5);
 
   for (int j = 0; j < rows; j++) {
     for (int i = 0; i < cols; i++) {
-      Cell cell = new Cell(i, j);
+      Cell cell = new Cell(i, j, label, floor);
       grid.add(cell);
     }
   }
@@ -70,7 +75,7 @@ void setup() {
 }
 
 void draw() {
-  
+
   //translate(0,0,-600);
   rotateX(PI/2);
   
@@ -128,7 +133,7 @@ void spaceNavigatorInteraction() {
     //scene.translate( 10, 10 , 10 );
  //scene.rotate(  (lb.pressed()? 1:0)*-5* PI / width, (rb.pressed()? 1:0) *5* PI / width,  0, scene.eye());
  scene.lookAround((j2x.getValue()*5* PI / width),(j2y.getValue()*5* PI / width));
- 
+ //println(scene.eye().position());
  //println(hat.right());
 }
 
