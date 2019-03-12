@@ -46,6 +46,9 @@ Cell current;
 ArrayList<Cell> stack = new ArrayList<Cell>();
 
 PImage label, floor;
+PImage normalMap;
+
+PShader texlightShader;
 
 
 void setup() {
@@ -57,7 +60,7 @@ void setup() {
   cols = floor(width/w);
   rows = floor(height/w);
   label = loadImage("lachoy.jpg");
-  floor = loadImage("floor.jpg");
+  floor = loadImage("default_picture_above.jpg");
   //frameRate(5);
 
   for (int j = 0; j < rows; j++) {
@@ -118,6 +121,13 @@ int index(int i, int j) {
     return 0;
   }
   return i + j * cols;
+}
+
+void keyPressed() {
+  if (key == ' ') {
+    shader(texlightShader);
+    texlightShader.set("normalMap", normalMap);
+  }
 }
 
 void spaceNavigatorInteraction() {
